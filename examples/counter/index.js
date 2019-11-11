@@ -27,6 +27,12 @@ class CounterModel extends Model {
 
 const store = new Store({
   models: [CounterModel],
+  middlewares: [],
+  onError: (e) => {
+    if (e.message) {
+      alert(e.message);
+    }
+  },
 })
 
 function Counter() {
