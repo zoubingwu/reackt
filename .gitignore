@@ -1,0 +1,4 @@
+yarn.lock
+.vscode/
+node_modules/
+.parcel-cache/
