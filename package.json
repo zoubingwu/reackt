@@ -1,0 +1,19 @@
+{
+  "name": "reducks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "prettier": "prettier --write \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "prettier": "1.19.1",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "immer": "^5.0.0",
+    "memoize-one": "^5.1.1",
+    "redux": "^4.0.4"
+  }
+}
