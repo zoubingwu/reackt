@@ -1,6 +1,9 @@
 {
-  "name": "reducks",
-  "version": "1.0.0",
+  "name": "reackt",
+  "version": "0.1.0",
+  "description": "A state container built on top of redux and immer.",
+  "repository": "github:shadeofgod/reackt",
+  "bugs": "https://github.com/shadeofgod/reackt/issues",
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
@@ -19,5 +22,24 @@
   "dependencies": {
     "immer": "^5.0.0",
     "redux": "^4.0.4"
-  }
+  },
+  "files": [
+    "src",
+    "test"
+  ],
+  "author": {
+    "name": "zoubingwu",
+    "email": "zoubingwu@gmail.com"
+  },
+  "keywords": [
+    "redux",
+    "reducer",
+    "state",
+    "predictable",
+    "functional",
+    "immutable",
+    "immer",
+    "elm"
+  ],
+  "sideEffects": false
 }
