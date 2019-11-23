@@ -1,7 +1,12 @@
 # Reackt
 
-- Create redux apps without boilerplate codes on defining action types, action creators etc.
-- Build on top of immer, enjoy the benefits of immutable state and can still update it in a mutable way!
+[![Edit reackt-design](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/reackt-design-09tjt?fontsize=14&hidenavigation=1&theme=dark)
+
+Reackt is a tiny state container built on top of redux and immer.
+
+It helps you focus on writing your own applications and never have to worry about all the boilerplate code on defining action types, action creators when using redux.
+
+It also has built-in immer support, so you have all the benefits of immutable state and you can still update your state in a mutable way!
 
 # Usage
 
