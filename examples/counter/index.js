@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createLogger } from 'redux-logger';
 import { Provider, useSelector, useDispatch } from 'react-redux';
-import createStore from '../../';
+import createStore from 'reackt';
 
 const delay = (ms = Math.random() * 2000) => {
   return new Promise(resolve => setTimeout(resolve, ms));
