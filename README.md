@@ -8,14 +8,28 @@ It helps you focus on writing your own applications and never have to worry abou
 
 It also has built-in immer support, so you have all the benefits of immutable state and you can still update your state in a mutable way!
 
+# Install
+
+```sh
+npm install reackt
+```
+
 # Usage
 
+[check counter example on codesandbox](https://codesandbox.io/s/reackt-design-09tjt?fontsize=14&hidenavigation=1&theme=dark)
+
 ```js
+import createStore from 'reackt';
+
 const ns = 'counter';
 
 const initialState = {
   count: 0,
   loading: false,
+};
+
+const delay = (ms = 2000) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
 };
 
 const counter = {
@@ -27,23 +41,10 @@ const counter = {
         state.count = state.count + 1;
       }, 'increment count');
 
-    const decrement = () =>
-      setState(state => {
-        state.count = state.count - 1;
-      }, 'decrement count');
-
-    const incrementN = n =>
-      setState(state => {
-        state.count = state.count + n;
-      }, 'increment count by n');
-
     const loading = bool =>
       setState(state => {
         state.loading = bool;
-      }, `set loading to ${bool}`);
-    const reset = () => {
-      setState(_ => initialState, 'reset state');
-    };
+      }, `set loading to ${bool}`); // optional string for debug info
 
     const incrementAsync = async () => {
       loading(true);
@@ -54,10 +55,7 @@ const counter = {
 
     return {
       increment,
-      incrementN,
-      decrement,
       incrementAsync,
-      reset,
     };
   },
 };
@@ -65,4 +63,11 @@ const counter = {
 const store = createStore({
   models: [counter],
 });
+
+store.getState(); // -> { counter: { count: 0, loading: false } }
+store.dispatch.counter.increment();
+store.getState(); // -> { counter: { count: 1, loading: false } }
+store.dispatch.counter.incrementAsync();
+// ... after two seconds
+store.getState(); // -> { counter: { count: 2, loading: false } }
 ```
