@@ -1,6 +1,6 @@
 # Reackt [![Actions Status](https://github.com/shadeofgod/reackt/workflows/test/badge.svg)](https://github.com/shadeofgod/reackt/actions) ![](https://img.shields.io/npm/l/reakt)
 
-[![Edit reackt-design](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/reackt-design-09tjt?fontsize=14&hidenavigation=1&theme=dark)
+[![Edit reackt-design](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/reackt-design-wb7wz?expanddevtools=1&fontsize=14&hidenavigation=1&theme=dark)
 
 Reackt is a tiny state container built on top of redux and immer.
 
@@ -16,7 +16,7 @@ npm install reackt
 
 # Usage
 
-[check counter example on codesandbox](https://codesandbox.io/s/reackt-design-09tjt?fontsize=14&hidenavigation=1&theme=dark)
+[check counter example on codesandbox](https://codesandbox.io/s/reackt-design-wb7wz?expanddevtools=1&fontsize=14&hidenavigation=1&theme=dark)
 
 ```js
 import createStore from 'reackt';
