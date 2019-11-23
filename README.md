@@ -1,4 +1,4 @@
-# Reackt
+# Reackt [![Actions Status](https://github.com/shadeofgod/reackt/workflows/test/badge.svg)](https://github.com/shadeofgod/reackt/actions) ![](https://img.shields.io/npm/l/reakt)
 
 [![Edit reackt-design](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/reackt-design-09tjt?fontsize=14&hidenavigation=1&theme=dark)
 
