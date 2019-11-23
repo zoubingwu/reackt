@@ -1,6 +1,6 @@
 {
   "name": "reackt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A state container built on top of redux and immer.",
   "repository": "github:shadeofgod/reackt",
   "bugs": "https://github.com/shadeofgod/reackt/issues",
