@@ -30,7 +30,12 @@ function createStore({
 }) {
   let store;
 
-  const reducersMap = models
+  const modelCollection = Object.keys(models).map(key => ({
+    ns: key,
+    ...models[key],
+  }));
+
+  const reducersMap = modelCollection
     .map(({ ns, state }) => {
       const initialState = state;
       const reducer = (state = initialState, action) => {
@@ -65,7 +70,7 @@ function createStore({
     composeEnhancers(applyMiddleware(...middlewares))
   );
 
-  models.forEach(({ ns, updates }) => {
+  modelCollection.forEach(({ ns, updates }) => {
     function setState(updater, description = '') {
       store.dispatch({
         type: createNamespacedType(ns, INTERNAL_UPDATE),
