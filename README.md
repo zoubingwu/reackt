@@ -4,53 +4,72 @@
 
 Reackt is a tiny state container built on top of redux and immer.
 
-It helps you focus on writing your own applications and never have to worry about all the boilerplate code on defining action types, action creators when using redux.
+It helps you build your application without worrying about all the boilerplate codes on defining action types or action creators like when using redux. You only have to define your state and how to update it and leave other thing to reackt.
 
-It also has built-in immer support, so you have all the benefits of immutable state and you can still update your state in a mutable way!
+Reackt is built on top of redux, so you still have all the benefits with redux like time-travel debugging, easy to implement undo/redo, state persistence, etc.
 
-# Install
+It also has built-in immer support, so you can just update your state in a mutable way but have all the benefits of immutable state!
+
+# Getting Started
+
+### Install
 
 ```sh
 npm install reackt
 ```
 
-# Usage
+or
 
-[check counter example on codesandbox](https://codesandbox.io/s/reackt-design-wb7wz?expanddevtools=1&fontsize=14&hidenavigation=1&theme=dark)
+```sh
+yarn add reackt
+```
+
+[check counter example on codesandbox!](https://codesandbox.io/s/reackt-design-wb7wz?expanddevtools=1&fontsize=14&hidenavigation=1&theme=dark)
+
+### Model
+
+Define you state and how you are gonna update it here, no more action, action types or action creators to worry about!
+
+reackt **only provides one simple API**: `createStore`
+
+**store.js**
 
 ```js
 import createStore from 'reackt';
 
-const ns = 'counter';
-
-const initialState = {
-  count: 0,
-  loading: false,
-};
-
-const delay = (ms = 2000) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 const counter = {
-  ns,
-  state: initialState,
+  state: 0,
+  updates: setState => ({
+    increment: () => {setState(state => {
+      state = state + 1;
+    });
+  }),
+};
+
+export const store = createStore({
+  models: { counter },
+});
+
+// it returns a redux store with extra enhancement,
+// now you can just call your update functions thru dispatch
+store.getState(); // -> { counter: 0 }
+store.dispatch.counter.increment();
+store.getState(); // -> { counter: 1 }
+```
+
+Your update function can also be async like this:
+
+```js
+const counter = {
+  state: 0,
   updates: setState => {
     const increment = () =>
       setState(state => {
-        state.count = state.count + 1;
-      }, 'increment count');
-
-    const loading = bool =>
-      setState(state => {
-        state.loading = bool;
-      }, `set loading to ${bool}`); // optional string for debug info
-
+        state = state + 1;
+      });
     const incrementAsync = async () => {
-      loading(true);
       await delay();
       increment();
-      loading(false);
     };
 
     return {
@@ -60,14 +79,42 @@ const counter = {
   },
 };
 
-const store = createStore({
-  models: [counter],
-});
+// now you can use it just like normal async function
+await store.dispatch.counter.incrementAsync();
+store.getState(); // -> returns { counter: 1 } after delay
+```
 
-store.getState(); // -> { counter: { count: 0, loading: false } }
-store.dispatch.counter.increment();
-store.getState(); // -> { counter: { count: 1, loading: false } }
-store.dispatch.counter.incrementAsync();
-// ... after two seconds
-store.getState(); // -> { counter: { count: 2, loading: false } }
+### View
+
+Since we build on top of redux, so it's just like a regular redux app with react-redux to connect the state to our view components. Using hooks API to make it even more enjoyable.
+
+**index.js**
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider, useSelector, useDispatch } from 'react-redux';
+
+import { store } from './store';
+
+function App() {
+  const count = useSelector(state => state.counter);
+  const {
+    counter: { increment },
+  } = useDispatch();
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={increment}>increment</button>
+    </div>
+  );
+}
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
 ```
