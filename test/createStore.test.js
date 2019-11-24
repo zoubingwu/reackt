@@ -9,10 +9,7 @@ const initialState = {
   loading: false,
 };
 
-const ns = 'counter';
-
 const counter = {
-  ns,
   state: initialState,
   updates: (setState, getState, dispatch) => {
     const increment = () =>
@@ -58,7 +55,7 @@ const counter = {
 describe('createStore', () => {
   it('exposes the same public API with redux', () => {
     const store = createStore({
-      models: [counter],
+      models: { counter },
     });
     const methods = Object.keys(store);
 
@@ -71,7 +68,7 @@ describe('createStore', () => {
 
   it('passes the initial state', () => {
     const store = createStore({
-      models: [counter],
+      models: { counter },
     });
     expect(store.getState()).toEqual({
       counter: { count: 0, loading: false },
@@ -80,12 +77,12 @@ describe('createStore', () => {
 
   it('expose update APIs on dispatch', () => {
     const store = createStore({
-      models: [counter],
+      models: { counter },
     });
 
-    expect(store.dispatch[ns]).toBeDefined();
+    expect(store.dispatch.counter).toBeDefined();
 
-    const methods = Object.keys(store.dispatch[ns]);
+    const methods = Object.keys(store.dispatch.counter);
 
     expect(methods.length).toBe(5);
     expect(methods).toContain('increment');
@@ -97,7 +94,7 @@ describe('createStore', () => {
 
   it('applies the update APIs to the initial state', async () => {
     const store = createStore({
-      models: [counter],
+      models: { counter },
     });
 
     expect(store.getState()).toEqual({
