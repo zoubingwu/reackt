@@ -40,9 +40,10 @@ import createStore from 'reackt';
 const counter = {
   state: 0,
   updates: setState => ({
-    increment: () => {setState(state => {
-      state = state + 1;
-    });
+    increment: () =>
+      setState(state => {
+        state = state + 1;
+      }),
   }),
 };
 
