@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createLogger } from 'redux-logger';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import createStore from 'reackt';
 
@@ -13,10 +12,7 @@ const initialState = {
   loading: false,
 };
 
-const ns = 'counter';
-
 const counter = {
-  ns,
   state: initialState,
   updates: (setState, getState, dispatch) => {
     const increment = () =>
@@ -62,14 +58,9 @@ const counter = {
   },
 };
 
-const logger = createLogger({
-  collapsed: true,
-});
-
 const store = createStore({
-  models: [counter],
+  models: { counter },
   onError: e => alert(e.message),
-  middlewares: [logger],
 });
 
 function App() {
