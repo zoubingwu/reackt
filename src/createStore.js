@@ -1,10 +1,5 @@
 import produce from 'immer';
-import {
-  createStore as createReduxStore,
-  combineReducers,
-  applyMiddleware,
-  compose,
-} from 'redux';
+import { createStore as createReduxStore, combineReducers } from 'redux';
 
 function noop() {}
 
@@ -20,14 +15,13 @@ function createNamespacedType(ns, type, delimiter = '/') {
   return ns + delimiter + type;
 }
 
-const INTERNAL_UPDATE = '__INTERNAL_UPDATE__';
+const INTERNAL_UPDATE = 'reackt_setState';
 
-function createStore({
-  models,
-  middlewares = [],
-  preloadState = undefined,
-  onError = noop,
-}) {
+function createStore(
+  { models, onError = noop, useImmer = true },
+  preloadState,
+  enhancers
+) {
   let store;
 
   const modelCollection = Object.keys(models).map(key => ({
@@ -41,11 +35,10 @@ function createStore({
       const reducer = (state = initialState, action) => {
         const { type, payload } = action;
         if (
-          type === createNamespacedType(ns, INTERNAL_UPDATE) &&
+          type.startsWith(createNamespacedType(ns, INTERNAL_UPDATE)) &&
           typeof payload === 'function'
         ) {
-          const nextState = produce(state, payload);
-          return nextState;
+          return useImmer ? produce(state, payload) : payload(state);
         }
         return state;
       };
@@ -61,30 +54,33 @@ function createStore({
 
   const rootReducer = combineReducers(reducersMap);
 
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-  store = createReduxStore(
-    rootReducer,
-    preloadState,
-    composeEnhancers(applyMiddleware(...middlewares))
-  );
+  store = createReduxStore(rootReducer, preloadState, enhancers);
 
   modelCollection.forEach(({ ns, updates }) => {
-    function setState(updater, description = '') {
+    const setState = (updater, description = '') => {
       store.dispatch({
-        type: createNamespacedType(ns, INTERNAL_UPDATE),
+        type: createNamespacedType(
+          ns,
+          description ? INTERNAL_UPDATE + ': ' + description : INTERNAL_UPDATE
+        ),
         payload: updater,
-        meta: description,
       });
-    }
+    };
 
-    const updateObject = updates(setState, store.getState, store.dispatch);
+    const otherAPI = {
+      getState: store.getState,
+      dispatch: store.dispatch,
+    };
+
+    const updateObject = updates(setState, otherAPI);
 
     for (const method in updateObject) {
       const originalMethod = updateObject[method];
       updateObject[method] = function wrapper() {
-        store.dispatch({ type: createNamespacedType(ns, method) });
+        store.dispatch({
+          type: createNamespacedType(ns, method),
+          payload: [...arguments],
+        });
         const ret = originalMethod.apply(this, arguments);
         if (isPromise(ret)) {
           return Promise.resolve(ret).catch(onError);
