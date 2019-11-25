@@ -16,8 +16,10 @@
     "@babel/core": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "babel-jest": "^24.9.0",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
-    "prettier": "1.19.1"
+    "prettier": "1.19.1",
+    "pretty-quick": "^2.0.1"
   },
   "dependencies": {
     "immer": "^5.0.0",
@@ -41,5 +43,10 @@
     "immer",
     "elm"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "sideEffects": false
 }
