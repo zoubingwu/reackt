@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider, useSelector, useDispatch } from 'react-redux';
 import createStore from 'reackt';
@@ -40,6 +40,7 @@ const counter = {
       setState(state => {
         state.loading = bool;
       }, `set loading to ${bool}`);
+
     const reset = () => {
       setState(_ => initialState, 'reset state');
     };
@@ -75,8 +76,12 @@ const store = createStore(
 function App() {
   const { count, loading } = useSelector(state => state.counter);
   const {
-    counter: { increment, incrementAsync, decrement, reset },
+    counter: { increment, incrementAsync, decrement, incrementN, reset },
   } = useDispatch();
+
+  const incrementBy10 = useCallback(() => {
+    incrementN(10);
+  }, [incrementN]);
 
   return (
     <div>
@@ -84,6 +89,7 @@ function App() {
       <button onClick={incrementAsync}> increment async </button>
       {loading && 'loading...'} <hr />
       <button onClick={decrement}> decrement </button> <hr />
+      <button onClick={incrementBy10}> increment by 10 </button> <hr />
       <button onClick={reset}> reset </button>
     </div>
   );
