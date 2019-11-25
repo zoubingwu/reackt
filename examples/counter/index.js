@@ -14,7 +14,13 @@ const initialState = {
 
 const counter = {
   state: initialState,
-  updates: (setState, getState, dispatch) => {
+
+  /**
+   * @param(function) - a state updater function to update your model state, by default it use immer internally so you should returns a new state or modify the state, see [Returning data from producers](https://immerjs.github.io/immer/docs/return), it accepts an optinal descriptive string as second argument for debug purpose.
+   * @param(Store) - only getState and dispatch are provided so you can get root state and call update functions from other model
+   * @returns(object) - returns an object as the collection of your update functions.
+   */
+  updates: (setState, { getState, dispatch }) => {
     const increment = () =>
       setState(state => {
         state.count = state.count + 1;
