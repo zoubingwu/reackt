@@ -1,7 +1,7 @@
 {
   "name": "reackt",
   "version": "0.2.0",
-  "description": "A state container built on top of redux and immer.",
+  "description": "A state container built on top of redux and immer that handles both sync or async tasks.",
   "repository": "github:shadeofgod/reackt",
   "bugs": "https://github.com/shadeofgod/reackt/issues",
   "main": "src/index.js",
