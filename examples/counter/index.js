@@ -58,10 +58,13 @@ const counter = {
   },
 };
 
-const store = createStore({
-  models: { counter },
-  onError: e => alert(e.message),
-});
+const store = createStore(
+  {
+    models: { counter },
+    onError: e => alert(e.message),
+  },
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function App() {
   const { count, loading } = useSelector(state => state.counter);

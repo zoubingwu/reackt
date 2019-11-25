@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "reackt": "^0.2.0",
+    "reackt": "^0.3.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.3"
