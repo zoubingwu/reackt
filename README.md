@@ -4,11 +4,19 @@ Reackt is a tiny state container built on top of redux and immer.
 
 It helps you build your application without worrying about all the boilerplate codes on defining action types or action creators like when using redux. You only have to define your state and how to update it and leave other thing to reackt.
 
-Reackt is built on top of redux, you have all the benefits with redux like time-travel debugging, easy to implement undo/redo, state persistence, etc. But unlike redux's pure and synchronous reducer, you can do whatever you want in reackt's update functions, async or sync! You no longer need other middlewares like redux-thunk, redux-saga or redux-observable to handle those asynchronous tasks like data fetching for you.
+Reackt is built on top of redux, you have all the benefits with redux like time-travel debugging, easy to implement undo/redo, state persistence, etc.
 
-Reackt makes writing GUI back to the simplest model: user interaction triggers some kind of event, event triggers a function call, it do some computes and update the state, then state changes make UI re-render to give user feedbacks. You don't have to consider all those concepts like action types, action creators in your brain now!
+But unlike redux's pure and synchronous reducer, you can do whatever you want in reackt's update functions, **async or sync**! You no longer need other middlewares such as redux-thunk, redux-saga or redux-observable to handle those asynchronous tasks like data fetchings for you.
 
-Reackt also has built-in immer support, so you can just update your state in a mutable way but have all the benefits of immutable state!
+Reackt makes writing GUI back to the simplest model:
+
+1. User interaction triggers some kind of event.
+2. Event triggers a function call, it do some computes then update the state inside the function.
+3. The state changes trigger UI re-render so users can have feedback to respond their interaction.
+
+You shouldn't have to consider all those concepts like reducers, actions, action types, action creators in your brain now, reackt just handles it internally for you!
+
+Reackt also has built-in immer support, you can just update your state in a mutable way but have all the benefits of immutable state!
 
 # Getting Started
 
