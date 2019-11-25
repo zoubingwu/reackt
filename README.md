@@ -6,9 +6,11 @@ Reackt is a tiny state container built on top of redux and immer.
 
 It helps you build your application without worrying about all the boilerplate codes on defining action types or action creators like when using redux. You only have to define your state and how to update it and leave other thing to reackt.
 
-Reackt is built on top of redux, so you still have all the benefits with redux like time-travel debugging, easy to implement undo/redo, state persistence, etc.
+Reackt is built on top of redux, you have all the benefits with redux like time-travel debugging, easy to implement undo/redo, state persistence, etc. But unlike redux's pure and synchronous reducer, you can do whatever you want in reackt's update functions, async or sync! you no longer need other middlewares like redux-thunk, redux-saga or redux-observable to handle those asynchronous tasks like data fetching for you.
 
-It also has built-in immer support, so you can just update your state in a mutable way but have all the benefits of immutable state!
+Reackt makes writing GUI back to the simplest model: user interaction triggers some kind of event, event triggers a function call, it do some computes and update the state, then state changes make UI re-render to give user feedbacks. You don't have to consider all those concepts like action types, action creators in your brain now!
+
+Reackt also has built-in immer support, so you can just update your state in a mutable way but have all the benefits of immutable state!
 
 # Getting Started
 
@@ -87,7 +89,7 @@ store.getState(); // -> returns { counter: 1 } after delay
 
 ### View
 
-Since we build on top of redux, so it's just like a regular redux app with react-redux to connect the state to our view components. Using hooks API to make it even more enjoyable.
+Since we build on top of redux and redux is view-layer agnostic, you can use any other UI library. For react, we can use react-redux to connect the state to our view components. Using hooks API to make it even more enjoyable.
 
 **index.js**
 
@@ -101,13 +103,14 @@ import { store } from './store';
 function App() {
   const count = useSelector(state => state.counter);
   const {
-    counter: { increment },
+    counter: { increment, incrementAsync },
   } = useDispatch();
 
   return (
     <div>
       <h1>{count}</h1>
       <button onClick={increment}>increment</button>
+      <button onClick={incrementAsync}>increment async</button>
     </div>
   );
 }
