@@ -21,9 +21,9 @@
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1"
   },
-  "dependencies": {
-    "immer": "^5.0.0",
-    "redux": "^4.0.4"
+  "peerDependencies": {
+    "immer": ">= 2.0",
+    "redux": ">= 4.0"
   },
   "files": [
     "src",
@@ -41,7 +41,8 @@
     "functional",
     "immutable",
     "immer",
-    "elm"
+    "elm",
+    "reackt"
   ],
   "husky": {
     "hooks": {

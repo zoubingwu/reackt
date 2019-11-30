@@ -23,13 +23,13 @@ Reackt also has built-in immer support, you can just update your state in a muta
 ### Install
 
 ```sh
-npm install reackt
+npm install reackt redux immer
 ```
 
 or
 
 ```sh
-yarn add reackt
+yarn add reackt redux immer
 ```
 
 check this counter example on codesandbox:
