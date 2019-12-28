@@ -76,6 +76,11 @@ function createStore(
 
     for (const method in updateObject) {
       const originalMethod = updateObject[method];
+      if (typeof originalMethod !== 'function') {
+        throw new TypeError(
+          `[reackt]: update method named ${method} is not a function!`
+        );
+      }
       updateObject[method] = function wrapper() {
         store.dispatch({
           type: createNamespacedType(ns, method),
