@@ -6,12 +6,12 @@ It helps you build your application without worrying about all the boilerplate c
 
 Reackt is built on top of redux, you have all the benefits with redux like time-travel debugging, easy to implement undo/redo, state persistence, etc.
 
-But unlike redux's pure and synchronous reducer, you can do whatever you want in reackt's update functions, **async or sync**! You no longer need other middlewares such as redux-thunk, redux-saga or redux-observable to handle those asynchronous tasks like data fetchings for you.
+But unlike redux's pure and synchronous reducer, you can do whatever you want in reackt's update functions, **async or sync**! You no longer need other middlewares such as redux-thunk, redux-saga or redux-observable to handle all the asynchronous tasks for you.
 
 Reackt makes writing GUI back to the simplest model:
 
 1. User interaction triggers some kind of event.
-2. Event triggers a function call, it do some computes then update the state inside the function.
+2. Event triggers a function call to computes and update the app state.
 3. The state changes trigger UI re-render so users can have feedback to respond their interaction.
 
 You shouldn't have to consider all those concepts like reducers, actions, action types, action creators in your brain now, reackt just handles it internally for you!
