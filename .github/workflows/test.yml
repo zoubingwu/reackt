@@ -22,6 +22,7 @@ jobs:
         run: |
           npm install
           npm install immer redux
+          npm run build
           npm test
         env:
           CI: true
