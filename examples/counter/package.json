@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "immer": "^5.0.0",
-    "reackt": "0.3.1",
+    "reackt": "latest",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.3",
