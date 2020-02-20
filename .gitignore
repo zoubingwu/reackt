@@ -6,3 +6,4 @@ lib/
 .yarnrc
 coverage/
 package-lock.json
+dist/
