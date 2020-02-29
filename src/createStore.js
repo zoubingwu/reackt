@@ -86,10 +86,17 @@ function createStore(
           type: createNamespacedType(ns, method),
           payload: [...arguments],
         });
-        const ret = originalMethod.apply(this, arguments);
-        if (isPromise(ret)) {
-          return Promise.resolve(ret).catch(onError);
+
+        let ret;
+        try {
+          ret = originalMethod.apply(this, arguments);
+          if (isPromise(ret)) {
+            return ret.catch(onError);
+          }
+        } catch (e) {
+          onError(e);
         }
+
         return ret;
       };
     }
