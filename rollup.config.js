@@ -1,5 +1,6 @@
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
 
 function config({ format, minify = true, input, ext = 'js' }) {
   const dir = `dist`;
@@ -14,7 +15,10 @@ function config({ format, minify = true, input, ext = 'js' }) {
     },
     plugins: [
       resolve(),
-
+      babel({
+        babelHelpers: 'bundled',
+        presets: ['@babel/preset-env'],
+      }),
       minify
         ? terser({
             sourcemap: true,
